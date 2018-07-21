@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 import re
 
 # specify the url
-food_page = 'http://www.patspubnkc.com/specials.html'
+food_page = 'http://powerandlightdistrict.com/eat-and-drink/pizza-bar'
 parsed_uri = urlparse(food_page)
 domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
 
@@ -30,8 +30,8 @@ def recURLSearch(url):
     for url, text in urls.items():
         if "happy hour" in text.lower():
             threshold = threshold + 1
-    print(page_text)
-    print("////////////")
+    #print(page_text)
+    #print("////////////")
     #print(page_text.count('happy hour'))
     if page_text.count('happy hour') > threshold:
         getTimes()
