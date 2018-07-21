@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'restaurants_view.dart';
 import 'bars_view.dart';
-import 'logon_view.dart';
 
 void main() => runApp(new MyApp());
 
@@ -71,12 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          InkWell(
-          child: Text('Login', style: TextStyle(fontWeight: FontWeight.bold),),
-          onTap: () =>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => LogonView()))
-        )]),
-        titleSpacing: 10.0,
         title: Text(widget.title),
         centerTitle: true,
         backgroundColor: Colors.redAccent,

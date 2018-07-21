@@ -2,6 +2,7 @@ name: happy_hour
 description: A new Flutter application.
 
 dependencies:
+  twilio_dart: ^0.0.6
   flutter:
     sdk: flutter
 
@@ -13,8 +14,7 @@ dependencies:
     path: ../../flutterdev/flutter_webview_plugin
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+
 
 
 # For information on the generic Dart part of this file, see the
