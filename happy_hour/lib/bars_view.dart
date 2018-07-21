@@ -17,7 +17,6 @@ class _BarsViewState extends State<BarsView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bars'),
-        centerTitle: true,
         backgroundColor: Colors.redAccent,
       ),
       body: Column(

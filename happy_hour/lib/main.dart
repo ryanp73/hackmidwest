@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'restaurants_view.dart';
 import 'bars_view.dart';
+import 'logon_view.dart';
 
 void main() => runApp(new MyApp());
 
@@ -70,6 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          InkWell(
+          child: Text('Login', style: TextStyle(fontWeight: FontWeight.bold),),
+          onTap: () =>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => LogonView()))
+        )]),
+        titleSpacing: 10.0,
         title: Text(widget.title),
         centerTitle: true,
         backgroundColor: Colors.redAccent,
@@ -94,13 +101,13 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Column(
                 children: <Widget>[
-                  IconButton(icon: Icon(Icons.fastfood), iconSize: 26.0, color: Colors.red, splashColor: Colors.red[200], onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => BarsView()))),
+                  IconButton(icon: Icon(Icons.fastfood), iconSize: 26.0, color: Colors.red, splashColor: Colors.red, highlightColor: Colors.red, onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => BarsView()))),
                   Text('BARS', style: TextStyle(fontWeight: FontWeight.bold),)
                 ],
               ),
               Column(
                 children: <Widget>[
-                  IconButton(icon: Icon(Icons.fastfood), iconSize: 26.0, color: Colors.red, splashColor: Colors.red[200], onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => RestaurantsView()))),
+                  IconButton(icon: Icon(Icons.fastfood), iconSize: 26.0, color: Colors.red, splashColor: Colors.red, highlightColor: Colors.red, onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => RestaurantsView()))),
                   Text('RESTAURANTS', style: TextStyle(fontWeight: FontWeight.bold),)
                 ],
               )

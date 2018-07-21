@@ -17,7 +17,6 @@ class _RestaurantsViewState extends State<RestaurantsView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Restaurants'),
-        centerTitle: true,
         backgroundColor: Colors.redAccent,
       ),
       body: Column(
