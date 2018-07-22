@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'restaurants_view.dart';
-import 'bars_view.dart';
+import 'package:happy_hour/bar_detail.dart';
+import 'package:happy_hour/code/Data.dart';
+import 'package:happy_hour/models/bar.dart';
 
 void main() => runApp(new MyApp());
 
@@ -21,93 +22,69 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.red,
       ),
-      home: new MyHomePage(title: 'Happy Hour'),
+      home: BarsView(),
     );
   }
 }
 
-class _Page {
-  _Page({this.icon, this.text});
-  final IconData icon;
-  final String text;
+class BarsView extends StatefulWidget {
+
+  BarsView();
+
+  @override
+  _BarsViewState createState() => _BarsViewState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class _BarsViewState extends State<BarsView> {
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
+  void initState(){
+    print('in BarsView');
+    _loadData();
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
-  List<BottomNavigationBarItem> _navigationViews;
-  List<_Page> _pages = List<_Page>();
-
-  @override
-  void initState() {
-    this._loadPages();
   }
 
-  _loadPages() {
-    
+  void _onTappedBar(Bar bar){
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => BarDetail(bar)));
   }
 
+  void _loadData() async{
+    await Data.LoadBarsAndRestaurants();
+    setState(() {
+          
+        });
+  }
 
+  Widget _buildBarList() {
+    List<Widget> barsAndRestaurants = List<Widget>();
+    Data.Bars.forEach((bar){
+      var temp = ListTile(
+        title: Text(bar.name, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0),),
+        subtitle: Text(bar.location),
+        onTap:() { _onTappedBar(bar); },
+        leading: Icon(
+          Icons.fastfood,
+          color: Colors.red[500]
+        ),
+      );
+      barsAndRestaurants.add(temp);
+      setState(() {
+              
+      });
+    });
 
-  @override
-  Widget build(BuildContext context) {
+       return ListView(children: barsAndRestaurants);
+  }
+
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Happy Hour'),
         centerTitle: true,
         backgroundColor: Colors.redAccent,
       ),
-      body: Offstage(
-          offstage: false,
-          child: TickerMode(
-            enabled: true,
-            child: buildBody(),
-          )),
-    );
-  }
-
-  Widget buildBody() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Column(
-                children: <Widget>[
-                  IconButton(icon: Icon(Icons.fastfood), iconSize: 26.0, color: Colors.red, splashColor: Colors.red, highlightColor: Colors.red, onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => BarsView()))),
-                  Text('BARS', style: TextStyle(fontWeight: FontWeight.bold),)
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  IconButton(icon: Icon(Icons.fastfood), iconSize: 26.0, color: Colors.red, splashColor: Colors.red, highlightColor: Colors.red, onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => RestaurantsView()))),
-                  Text('RESTAURANTS', style: TextStyle(fontWeight: FontWeight.bold),)
-                ],
-              )
-            ]
-          )
-        ]
-      )
+      body: _buildBarList()
     );
   }
 }
+
