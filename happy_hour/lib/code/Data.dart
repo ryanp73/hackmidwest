@@ -11,9 +11,11 @@ class Data{
     Bars = List<Bar>();
     var url = 'https://midwest-happy-hour.herokuapp.com/all';
     var response = await Global.HttpClient().getAs(url);
+    print(response);
     response.forEach(iterateMapEntry);
   }
   static void iterateMapEntry(key, value) {
+    print('adding bar: $value');
     Bars.add(Bar.fromJson(value));
   }
 }

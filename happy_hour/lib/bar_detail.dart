@@ -15,10 +15,11 @@ class _BarDetailState extends State<BarDetail> {
   @override
   void initState() {
     print('in Bar Detail');
-    //_loadData();
+    print('happyhour: ${widget.bar.happyHour}');
+    // if(widget.bar.happyHour)
   }
 
-   void _launchNavigationInGoogleMaps() async{
+  void _launchNavigationInGoogleMaps() async {
     var lon = widget.bar.long;
     var lat = widget.bar.lat;
     print('lon: $lon, lat: $lat');
@@ -39,11 +40,35 @@ class _BarDetailState extends State<BarDetail> {
           backgroundColor: Colors.redAccent,
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(height: 16.0),
+            Text(
+              'Happy Hours: ${widget.bar.happyHour[0]}',
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 20.0),
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              'Price: ${widget.bar.price}',
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 20.0),
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              'Rating: ${widget.bar.rating}',
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 20.0),
+            ),
+            SizedBox(height: 16.0),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              IconButton(icon: Icon(Icons.directions), onPressed: _launchNavigationInGoogleMaps, color: Colors.redAccent, iconSize: 50.0,)
-            ])
+              IconButton(
+                icon: Icon(Icons.directions),
+                onPressed: _launchNavigationInGoogleMaps,
+                color: Colors.redAccent,
+                iconSize: 50.0,
+              )
+            ]),
           ],
         ));
   }
