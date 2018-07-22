@@ -17,18 +17,18 @@ class _BarDetailState extends State<BarDetail> {
   void initState() {
     print('in Bar Detail');
     print('happyhour: ${widget.bar.happyHour}');
-    if(widget.bar.happyHour != null){
-      for(int i = 0; i < widget.bar.happyHour.length; i++){ 
-        if(widget.bar.happyHour[i].indexOf('day') > 0){
-          if(i < widget.bar.happyHour.length - 2 && widget.bar.happyHour[i] != 'Everyday'){
+    if (widget.bar.happyHour != null) {
+      for (int i = 0; i < widget.bar.happyHour.length; i++) {
+        if (widget.bar.happyHour[i].indexOf('day') > 0) {
+          if (i < widget.bar.happyHour.length - 2 &&
+              widget.bar.happyHour[i] != 'Everyday') {
             hhString += widget.bar.happyHour[i] + ', ';
           }
-        }
-        else{
+        } else {
           var tempString = widget.bar.happyHour[i].join('-');
           print(tempString);
           hhString += tempString;
-        } 
+        }
       }
       print(hhString);
     }
@@ -47,16 +47,23 @@ class _BarDetailState extends State<BarDetail> {
     }
   }
 
-  Widget buildHHText(){
-    if(hhString != 'Happy Hours: '){
+  Widget buildHHText() {
+    if (hhString != 'Happy Hours: ') {
       return Text(
-              hhString,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 20.0),
-            );
-    }
-    else{
+        hhString,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(fontSize: 20.0),
+      );
+    } else {
       return SizedBox();
+    }
+  }
+
+  _launchUrl() async {
+    if (await canLaunch(widget.bar.url)) {
+      await launch(widget.bar.url);
+    } else {
+      throw 'Could not launch ${widget.bar.url}';
     }
   }
 
@@ -85,8 +92,16 @@ class _BarDetailState extends State<BarDetail> {
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 16.0),
+            new RaisedButton(
+              onPressed: _launchUrl,
+              child: new Text('Visit Website'),
+            ),
+            SizedBox(height: 16.0),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text('Directions:', style: TextStyle(fontSize: 16.0),),
+              Text(
+                'Directions:',
+                style: TextStyle(fontSize: 16.0),
+              ),
               IconButton(
                 icon: Icon(Icons.directions),
                 onPressed: _launchNavigationInGoogleMaps,

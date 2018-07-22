@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: new ThemeData(
         // This is the theme of your application.
@@ -56,6 +57,30 @@ class _BarsViewState extends State<BarsView> {
   }
 
   Widget _buildBarList() {
+    if (Data.Bars == null || Data.Bars.length == 0) {
+      return Center(
+					child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children:[SizedBox(
+					  height: 150.0,
+				    width: 150.0,
+				    child: new CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.redAccent),
+				    value: null,
+				    strokeWidth: 7.0,
+			    ),),
+            new Container(
+              margin: const EdgeInsets.only(top: 25.0),
+              child: new Center(
+                child: new Text(
+                  "Loading.. please wait...",
+
+                ),
+              ),
+            ),])
+				);
+    }
+    else {
     List<Widget> barsAndRestaurants = List<Widget>();
     Data.Bars.forEach((bar){
       var temp = ListTile(
@@ -74,6 +99,7 @@ class _BarsViewState extends State<BarsView> {
     });
 
        return ListView(children: barsAndRestaurants);
+    }
   }
 
   Widget build(BuildContext context){

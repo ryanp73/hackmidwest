@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
 import 'dart:core';
 import 'Global.dart';
 import 'package:happy_hour/models/bar.dart';
