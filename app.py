@@ -12,13 +12,13 @@ def hello_world():
 @app.route('/all')
 def list_happy_hour_pages():
     restaurants = {}
-    if not os.path.exists('app/data/list.json'):
+    if not os.path.exists('server/data/list.json'):
         
         data = search_four_square("bar")
-        with open('app/data/list.json', 'w+') as f:
+        with open('server/data/list.json', 'w+') as f:
             json.dump(data, f, indent=4)
     else:
-        with open('app/data/list.json', 'r') as f:
+        with open('server/data/list.json', 'r') as f:
             data = json.load(f)
     for venue in data["response"]["venues"]:
         restaurants[venue["id"]] = {
@@ -50,7 +50,7 @@ def search_four_square(query):
 
 @app.route('/<venue_id>')
 def get_venue_details(venue_id):
-    path = 'app/data/venues/{}.json'.format(venue_id)
+    path = 'server/data/venues/{}.json'.format(venue_id)
     if not os.path.exists(path):
         data = search_venue_id(venue_id)
         with open(path, 'w+') as f:
