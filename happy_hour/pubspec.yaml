@@ -4,6 +4,7 @@ description: A new Flutter application.
 dependencies:
   android_intent: "^0.2.1"
   servicestack: "^0.0.9"
+  url_launcher: ^3.0.3
   flutter:
     sdk: flutter
 

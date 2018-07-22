@@ -6,10 +6,12 @@ class Bar{
   List<dynamic> happyHour;
   String price;
   double rating;
+  String url;
 
-  Bar({this.happyHour, this.lat, this.long, this.location, this.name, this.price, this.rating});
+  Bar({this.happyHour, this.url, this.lat, this.long, this.location, this.name, this.price, this.rating});
 
   factory Bar.fromJson(Map<String, dynamic> json){
+    print(json['happy_hour']);
     return Bar(
       happyHour: json['happy_hour'],
       lat: json['lat'],
@@ -17,7 +19,8 @@ class Bar{
       location: json['location'],
       name: json['name'],
       price: json['price'],
-      rating: json['rating']
+      rating: json['rating'],
+      url: json['url']
     );
   }
 }

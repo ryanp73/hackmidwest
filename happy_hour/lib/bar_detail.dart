@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:happy_hour/code/Data.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:happy_hour/models/bar.dart';
 import 'package:android_intent/android_intent.dart';
 
@@ -12,11 +12,26 @@ class BarDetail extends StatefulWidget {
 }
 
 class _BarDetailState extends State<BarDetail> {
+  String hhString = 'Happy Hours: ';
   @override
   void initState() {
     print('in Bar Detail');
     print('happyhour: ${widget.bar.happyHour}');
-    // if(widget.bar.happyHour)
+    if(widget.bar.happyHour != null){
+      for(int i = 0; i < widget.bar.happyHour.length; i++){ 
+        if(widget.bar.happyHour[i].indexOf('day') > 0){
+          if(i < widget.bar.happyHour.length - 2 && widget.bar.happyHour[i] != 'Everyday'){
+            hhString += widget.bar.happyHour[i] + ', ';
+          }
+        }
+        else{
+          var tempString = widget.bar.happyHour[i].join('-');
+          print(tempString);
+          hhString += tempString;
+        } 
+      }
+      print(hhString);
+    }
   }
 
   void _launchNavigationInGoogleMaps() async {
@@ -32,6 +47,19 @@ class _BarDetailState extends State<BarDetail> {
     }
   }
 
+  Widget buildHHText(){
+    if(hhString != 'Happy Hours: '){
+      return Text(
+              hhString,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 20.0),
+            );
+    }
+    else{
+      return SizedBox();
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -42,11 +70,7 @@ class _BarDetailState extends State<BarDetail> {
         body: Column(
           children: <Widget>[
             SizedBox(height: 16.0),
-            Text(
-              'Happy Hours: ${widget.bar.happyHour[0]}',
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 20.0),
-            ),
+            buildHHText(),
             SizedBox(height: 16.0),
             Text(
               'Price: ${widget.bar.price}',
@@ -62,6 +86,7 @@ class _BarDetailState extends State<BarDetail> {
             ),
             SizedBox(height: 16.0),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text('Directions:', style: TextStyle(fontSize: 16.0),),
               IconButton(
                 icon: Icon(Icons.directions),
                 onPressed: _launchNavigationInGoogleMaps,
