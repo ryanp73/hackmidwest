@@ -91,6 +91,3 @@ def search_venue_id(venue_id):
 
     resp = requests.get(url=url, params=params)
     return resp.json()
-
-if __name__=='__main__':
-    app.run()
